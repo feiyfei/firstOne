@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #p1{
+            width:600px;
+            height:50px;
+            font-family:"华文行楷";
+            font-size:24px;
+            color:#06F;
+            border:1px solid cornflowerblue;
+        }
+        #u1{
+            display:none;
+            width:60px;
+            background:cornflowerblue;
+        }
+        li{
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+    <p id="p1">自定义菜单</p>
+    <ul id="u1">
+        <li>复制</li>
+        <li>粘贴</li>
+        <li>剪切</li>
+    </ul>
+    <script>
+        var menu=document.getElementById("u1");
+        var ele=document.getElementById("p1");
+        ele.onmousedown=function(event){
+            var e=event ? event : window.event;
+            if(e.button==2){
+                document.oncontextmenu=function(ee){
+                    if(ee){
+                        ee.preventDefault();
+                    }else if(window.event){
+                        ee=window.event;
+                        ee.returnValue=false;
+                        ee.preventDefault();
+                    }
+                }
+                menu.style.cssText="display:block;position:absolute;left:"+e.clientX+"px;top:"+
+                                e.clientY+"px";
+            }
+        }
+        ele.onmouseout=function(){
+            setTimeout(function(){
+                menu.style.display="none";
+            },400);
+        }
+    </script>
+</body>
+</html>
